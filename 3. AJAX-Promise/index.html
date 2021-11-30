@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    <h2>Promise 封装 AJAX 操作</h2>
+    <button id='btn01'>点击发送AJAX</button>
+  </div>
+
+  <script>
+    const btn = document.getElementById('btn01');
+
+    btn.addEventListener('click', function(){
+      // 创建 Promise
+      const p = new Promise((resolve, reject) => {
+
+      
+        // 1. 创建对象
+        const xhr = new XMLHttpRequest();
+        // 2. 初始化
+        xhr.open('GET', 'http://127.0.0.1:8000/server');
+        // 3. 发送
+        xhr.send();
+        // 4. 处理响应结果
+        xhr.onreadystatechange = function(){
+          if(xhr.readyState == 4){
+            if(xhr.status >= 200 && xhr.status < 300){
+              // 控制台输出响应体
+              // console.log(xhr.response);
+              resolve(xhr.response);
+            } else {
+              // 控制台输出响应状态码
+              // console.log(xhr.status);
+              reject(xhr.status);
+            }
+          }
+        }
+
+      })
+
+      p.then((value) => {
+        console.log('成功！ ' + value);
+      }, (reason) => {
+        console.log('失败！ ' + reason);
+      })
+    })
+  </script>
+</body>
+</html>

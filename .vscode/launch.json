@@ -1,0 +1,10 @@
+{
+  "configurations": [
+    {
+      "name": "Launch Microsoft Edge and open the Edge DevTools",
+      "request": "launch",
+      "type": "vscode-edge-devtools.debug",
+      "url": "/Users/xrk/Documents/code/webCode/promise_basic/3. AJAX/index.html" // Provide your project's url to finish configuring
+    }
+  ]
+}
