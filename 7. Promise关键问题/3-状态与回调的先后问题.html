@@ -1,0 +1,34 @@
+<!-- 改变 promise 状态和指定回调函数谁先谁后 -->
+<!-- 1. 都有可能，正常情况下：先指定回调后改变状态（在异步任务中resolve()），但也有可能前后顺序对调（在同步任务中resolve()）。
+2. 如何先改状态再制定回调
+  1. 在执行器中直接调用 resolve()/reject()
+  2. 延迟更长时间才调用 then()
+3. 什么时候才能得到数据（回调函数什么时候执行）
+  1. 如果先指定的回调，那当状态发生改变时，回调函数就会调用，得到数据。
+  2. 如果先改变状态，那当指定回调时，回调函数就会调用，得到数据。 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let p = new Promise((resolve, reject) => {  // 实际写 promise 时，以异步任务居多（fs、database、ajax、计时器）
+      setTimeout(() => {  // 如果写在这个异步任务中的话，是先指定回调，1s后状态才改变。1s后依旧执行了回调函数。纠结这个先后有什么必要性吗？
+        resolve('OK');
+      }, 1000)
+    })
+
+    // 执行器中为同步任务时，状态改变先执行
+    // 执行器中为异步任务时，then 方法先执行  （如计时器）
+    p.then(value => {   
+      console.log(value);
+    }, reason => {
+
+    })
+  </script>
+</body>
+</html>
