@@ -1,0 +1,21 @@
+<!-- 自定义就需要去覆盖原有的 promsie -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let p = new Promise((resolve, reject) => {
+      resolve('OK');
+    })
+
+    p.then(value => {
+      console.log(value);
+    }, reason => {
+      console.warn(reason);
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!-- promise 异常穿透
+1. 当使用 promise 的 then 链式调用时，可以在 最后 指定失败的回调。
+2. 前面任何操作出了异常，都会传到 最后 失败的回调中处理(这种现象被称为 异常穿透)。
+(注意：只有前面 promise 的状态为成功了才会执行后面的回调函数) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let p = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        // reject('Error');
+        resolve('ok');
+      }, 1000)
+    })
+
+    p.then(value => {
+      return new Promise((resolve, reject) => {
+        resolve('success');
+      })
+    }).then(value => {
+      console.log(value);   // success
+      // throw '失败啦';
+    }).then(value => {
+      // console.log(value);   // undefined
+      throw '失败啦';
+    }).catch(reason => {    // 也可以用 then 但是需要填两个参数 value & reason
+      console.warn(reason); // 用 warn 输出的内容会被红色标记
+    })
+  </script>
+</body>
+</html>
+

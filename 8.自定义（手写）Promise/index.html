@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="promise.js"></script>
+</head>
+<body>
+  <script>
+    let p = new Promise((resolve, reject) => {
+      // setTimeout(() => {
+      //   resolve('ok');
+      //   // reject('err');
+      // }, 1000)
+      resolve('OK');
+      // reject('error');
+      // 抛出异常 改变状态
+      // throw '出错啦';
+    })
+
+    console.log(p);
+
+    const res = p.then(value => {
+      // console.log(value);
+      // return 'Hello';
+      // return new Promise((resolve, reject) => {
+      //   // resolve('success');
+      //   // reject('error');
+      //   throw '出错了';
+      // })
+      throw 'err';
+    }, reason => {
+      // console.warn(reason);
+      // return 'error';
+      return new Promise((resolve, reject) => {
+        // resolve('hello promise');
+        // reject('err');
+        throw 'wrong';
+      })
+    })
+
+    setTimeout(() => {
+    console.log(res);
+
+    }, 1000)
+
+    // p.then(value => {
+    //   console.log(value);
+    // }, reason => {
+    //   console.warn(reason);
+    // })
+  </script>
+</body>
+</html>

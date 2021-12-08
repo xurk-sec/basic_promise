@@ -1,0 +1,32 @@
+<!-- 7.中断 promise 链
+  1. 当使用 promise 的 then 链式调用时，在中间中断，不再调用后面的回调函数.
+  2. 办法：在回调函数中返回一个 pending 状态的 promise 对象。(有且只有这一个办法)
+  返回的是 promise 对象时，新 promise 对象的状态取决于返回的 promise 对象的状态。（这里需要是 pending）
+  回调函数是在 promise 状态被改变时才执行，这里状态发生改变（pending），因此不执行回调函数， promise 链被中断。
+  return new Promise(() => {}) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let p = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('ok');
+      }, 1000)
+    })
+    p.then(value => {
+      return new Promise((resolve, reject) => {
+        resolve('success');
+      })
+    }).then(value => {
+      console.log(value);   // success
+      return new Promise(() => {});   // 导致新 promise 对象状态未发生改变（pending） 因此后面的回调函数不执行， promise 链被中断。
+    }).then(value => {
+      console.log(value);   // undefined
+    })
+  </script>
+</body>
+</html>
