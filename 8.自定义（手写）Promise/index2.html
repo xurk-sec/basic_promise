@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="promise.js"></script>
+</head>
+  <body>
+    <script>
+      // const p = Promise.resolve('OK');
+      // const p = Promise.resolve(Promise.resolve('wow'));
+      // const p = Promise.reject('err');
+      // const p = Promise.reject(new Promise((resolve, reject) => {}));
+      let p1 = new Promise((resolve, reject) => {
+        // setTimeout(() => {
+          resolve('Ok');
+    //     }, 1000)        
+     })
+      let p2 = Promise.reject('err');
+      let p3 = Promise.resolve('ook');
+      // let p3 = Promise.reject('err');
+      // const p = Promise.all([p1, p2, p3]);
+      const p = Promise.race([p1, p2, p3]);
+      console.log(p);
+    </script>
+  </body>
+</html>

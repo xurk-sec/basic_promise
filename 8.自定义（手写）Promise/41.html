@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="promise.js"></script>
+</head>
+  <body>
+    <script>
+      let p1 = new Promise((resolve, reject) => {
+        resolve('ok');
+        console.log('111');
+      })
+
+      p1.then(v => {
+        console.log('222');
+      })
+
+      console.log('333');
+      // 先 111 再 333 后 222
+      // 因为 222 是异步执行的，需要等待所有同步代码执行完毕后再执行。
+    </script>
+  </body>
+</html>
